@@ -8,7 +8,7 @@
 
 | | |
 |---|---|
-| **Author** | [BHARGAV] |
+| **Author** | BHARGAV NAGAR |
 | **Program** | Cybersecurity & Ethical Hacking Internship, Networkwalks |
 | **Modules** | W2-PM1, W2-PM4, W2-PM5 and W2-PM-FINAL |
 | **Date** | 10 November 2026 |
@@ -322,5 +322,5 @@ This repository is for education and research only. Every activity was performed
 ---
 
 **Author:** [BHARGAV], Cybersecurity Intern, Networkwalks (B084D)
-**Contact:** [LinkedIn profile link]  |  [GitHub profile link]
+**Contact:** www.linkedin.com/in/bhargav-nagar-892a54447  |  https://github.com/bhargavnagar8-jpg
 `#Networkwalks #Cybersecurity #EthicalHacking`
