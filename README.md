@@ -38,7 +38,7 @@
 
 ## 1. Executive Summary
 
-This project covers the first two phases of a security assessment: **reconnaissance** and **scanning**. Using only built-in Kali Linux tools, I gathered public information about a web domain, collected emails and sub-domains for a large organization from open sources, and mapped the live hosts on my own lab network.
+This project covers the first two phases of a security assessment: **reconnaissance** and **scanning**. Using only built-in Kali Linux tools, I gathered public information about a web domain, collected emails and sub-domains from open sources, and mapped the live hosts on my own lab network.
 
 **Highlights**
 
@@ -57,7 +57,7 @@ This project covers the first two phases of a security assessment: **reconnaissa
 
 **Out of scope:** exploitation, vulnerability validation, password attacks, port and service scanning, and any system not listed above.
 
-> whois, nslookup, dnsrecon and theHarvester read public records and public data sources. whatweb, curl and wafw00f send a small number of normal HTTP requests to the target, so they are lightly active.
+> whois, nslookup, dnsrecon and theHarvester read public records and public data sources. whatweb, curl and wafw00f send a small number of normal HTTP requests to the target, so they are lightly active but within an authorized scope.
 
 ## 3. Lab Environment
 
@@ -140,15 +140,14 @@ sudo zenmap          # target 10.0.0.0/24, profile "Ping scan"
 
 | Task | Command | Key result |
 |---|---|---|
-| 1. Domain registration | `whois networkwalks.com` | Registrar GoDaddy.com, LLC. Created 2019-11-06, expires 2027-11-06. Name servers `NS6135.HOSTGATOR.COM` and `NS6136.HOSTGATOR.COM`. DNSSEC unsigned. Registrar locks set. |
+| 1. Domain registration | `whois networkwalks.com` | Registrar GoDaddy.com, LLC. Created 2019-11-06, expires 2027-11-06. Name servers `NS6135.HOSTGATOR.COM` and `NS6136.HOSTGATOR.COM`. DNSSEC unsigned. |
 | 2. Web technologies | `whatweb networkwalks.com` | Apache, WordPress 7.1.4, WP Download Manager 3.3.76, jQuery 3.7.1. Server IP and a contact email exposed. |
 | 3. IP resolution | `nslookup networkwalks.com` | Resolved to `192.232.216.135` via DNS server `8.8.8.8`. |
 | 4. HTTP headers | `curl -I https://networkwalks.com` | HTTP/2 200, `server: Apache`, cache headers, WordPress REST API link at `/wp-json/`. |
 | 5. WAF detection | `wafw00f networkwalks.com` | ModSecurity (SpiderLabs) WAF detected. 2 requests sent. |
 | 6. DNS enumeration | `dnsrecon -d networkwalks.com` | HostGator name servers running BIND 9.16.23-RH, MX `mail.networkwalks.com`, SPF ending in `~all`, 8 cPanel SRV records. |
 
-<details>
-<summary><b>Evidence: PM1 screenshots</b></summary>
+### Evidence: PM1 screenshots
 
 **Task 1: whois**
 ![whois](screenshots/pm1-01-whois.png)
@@ -168,8 +167,6 @@ sudo zenmap          # target 10.0.0.0/24, profile "Ping scan"
 **Task 6: dnsrecon**
 ![dnsrecon](screenshots/pm1-06-dnsrecon.png)
 
-</details>
-
 ## 6. Module W2-PM4: OSINT with theHarvester
 
 **Target:** `microsoft.com` (public sources only)
@@ -187,8 +184,7 @@ Options used: `-d` target domain, `-l` result limit, `-b` data source.
 - Sources that need an API key (for example bevigil, Bitbucket, BuiltWith, Brave and Censys) failed with "Missing API key". Real exposure may be larger than what was collected.
 - The all-sources run returned more than the limit of 50 because some sources do not apply the limit.
 
-<details>
-<summary><b>Evidence: PM4 screenshots</b></summary>
+### Evidence: PM4 screenshots
 
 **Help page and options**
 ![help](screenshots/pm4-01-help.png)
@@ -201,8 +197,6 @@ Options used: `-d` target domain, `-l` result limit, `-b` data source.
 
 **Task 2: all sources, results**
 ![all sources results](screenshots/pm4-04-all-sources-results.png)
-
-</details>
 
 ## 7. Module W2-PM5: Network Scanning with Zenmap
 
@@ -219,8 +213,7 @@ Options used: `-d` target domain, `-l` result limit, `-b` data source.
 
 `10.0.0.1` is most likely the virtual gateway of the VirtualBox network. In the topology, the local host sits in the centre and both hosts show as green nodes (fewer than three open ports; no port scan was run).
 
-<details>
-<summary><b>Evidence: PM5 screenshots</b></summary>
+### Evidence: PM5 screenshots
 
 **Local IP, subnet and MAC (`ip a`)**
 ![ip a](screenshots/pm5-01-ip-a.png)
@@ -233,8 +226,6 @@ Options used: `-d` target domain, `-l` result limit, `-b` data source.
 
 **Topology saved as PDF**
 ![topology pdf](screenshots/pm5-04-topology-pdf.png)
-
-</details>
 
 ---
 
